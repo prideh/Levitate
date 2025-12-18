@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Turbo Frame Loading State */
+turbo-frame[busy] {
+  opacity: 0.5;
+  pointer-events: none;
+  position: relative;
+}
+
+turbo-frame[busy]::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid rgba(139, 92, 246, 0.3); /* Purple-ish */
+  border-radius: 50%;
+  border-top-color: #8b5cf6; /* Purple-500 */
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}

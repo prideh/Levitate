@@ -1,0 +1,54 @@
+<div class="max-w-4xl mx-auto">
+  <!-- Search / Vibe Input -->
+  <!-- Search / Vibe Input -->
+  <div class="mb-12 text-center">
+    <h2 class="text-4xl md:text-6xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-500 mb-8">
+      How are you feeling?
+    </h2>
+    
+    <%= form_with url: recommendations_path, method: :get, 
+          data: { 
+            controller: "search-autocomplete",
+            search_autocomplete_history_value: search_history.to_json,
+            turbo_frame: "recommendations_results", 
+            turbo_action: "advance",
+            action: "submit->search-autocomplete#save"
+          }, 
+          class: "max-w-xl mx-auto relative group z-50" do |f| %>
+      
+      <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+        <svg class="w-5 h-5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      </div>
+      
+      <%= f.text_field :vibe, 
+          placeholder: "Describe your mood...", 
+          value: @vibe,
+          autocomplete: "off",
+          data: { 
+            search_autocomplete_target: "input",
+            action: "input->search-autocomplete#filter focus->search-autocomplete#filter"
+          },
+          class: "block w-full pl-12 pr-32 py-4 bg-[#0a0a0a] border border-white/10 rounded-full focus:ring-2 focus:ring-white/20 focus:border-white/20 text-white placeholder-zinc-600 transition-all duration-300 shadow-xl group-hover:shadow-white/5 font-medium" %>
+      
+      <%= f.submit "Levitate", 
+          class: "absolute right-2 top-2 bottom-2 px-6 bg-white hover:bg-zinc-200 text-black font-semibold rounded-full transition-all duration-200 shadow-lg hover:scale-105 active:scale-95",
+          data: { turbo_submits_with: "..." } %>
+
+      <!-- Autocomplete Dropdown -->
+      <ul data-search-autocomplete-target="results" 
+          class="absolute z-[100] w-full bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 rounded-2xl mt-3 shadow-2xl overflow-hidden hidden max-h-80 overflow-y-auto ring-1 ring-white/5">
+      </ul>
+    <% end %>
+  </div>
+
+  <!-- Results Frame -->
+  <%= turbo_frame_tag "recommendations_results" do %>
+    <% if @tracks.present? || @page > 0 %>
+       <%= render "results", tracks: @tracks || [], next_page: @next_page, page: @page %>
+    <% else %>
+       <div class="text-center text-gray-500 mt-12">
+         <p>Enter a vibe above to float away...</p>
+       </div>
+    <% end %>
+  <% end %>
+</div>

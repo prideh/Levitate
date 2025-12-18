@@ -1,0 +1,17 @@
+<li id="history_track_<%= track.spotify_id %>">
+  <a href="https://open.spotify.com/track/<%= track.spotify_id %>" target="_blank"
+      class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700 transition group animate-fade-in">
+      
+    <div class="w-10 h-10 bg-gray-700 rounded overflow-hidden flex-shrink-0">
+       <% if track.image_url.present? %>
+         <img src="<%= track.image_url %>" class="w-full h-full object-cover">
+       <% else %>
+         <div class="w-full h-full flex items-center justify-center text-[10px]">?</div>
+       <% end %>
+    </div>
+    <div class="min-w-0">
+      <p class="text-sm font-medium text-gray-200 truncate group-hover:text-white"><%= track.name %></p>
+      <p class="text-xs text-gray-500 truncate"><%= track.artist %></p>
+    </div>
+  </a>
+</li>

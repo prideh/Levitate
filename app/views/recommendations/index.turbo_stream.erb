@@ -1,0 +1,6 @@
+<%# Append new tracks to the grid (Note: target is technically the previous page's frame if nested, or we can target the main container) %>
+<%# Simpler approach: Replace the 'Loading' frame of the current page with the tracks AND the next page's loading frame %>
+
+<%= turbo_stream.replace "recommendations_page_#{@page}" do %>
+  <%= render "results", tracks: @tracks, page: @page, next_page: @next_page %>
+<% end %>
