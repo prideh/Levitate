@@ -4,11 +4,17 @@
 
 /* Turbo Frame Loading State */
 turbo-frame[busy] {
-  opacity: 0.5;
   pointer-events: none;
   position: relative;
+  min-height: 200px;
 }
 
+/* Hide the content while loading */
+turbo-frame[busy] > * {
+  opacity: 0;
+}
+
+/* Loading spinner */
 turbo-frame[busy]::before {
   content: "";
   display: block;
