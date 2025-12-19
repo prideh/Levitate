@@ -8,6 +8,7 @@ Levitate ist ein Ruby on Rails 8 MVP, das generative KI nutzt, um abstrakte Prom
 +3
 
 🚀 Features
+
 KI-NLU-Layer: Integration von Google Gemini (LLM) zur Interpretation komplexer, menschlicher Stimmungen.
 Deep Spotify Integration: Tiefgreifende Nutzung der Spotify Web API zur Generierung von Musikvorschlägen.
 Echtzeit-Updates: Implementierung von Stimulus.js für sofortige Aktualisierungen des Suchverlaufs ohne Neuladen der Seite.
@@ -16,6 +17,7 @@ API-Management: Eigens entwickelte Caching-Layer zur Handhabung von API-Rate-Lim
 Mobile-First: Responsive Design mit Tailwind CSS.
 
 🛠 Tech-Stack
+
 Framework: Ruby on Rails 8 
 Frontend: Hotwire-Stack (Turbo & Stimulus) 
 Styling: Tailwind CSS 
