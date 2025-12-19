@@ -97,7 +97,10 @@ class RecommendationsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to "https://open.spotify.com/track/#{@track.spotify_id}", allow_other_host: true }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.prepend("recent_discoveries_list", partial: "history_item", locals: { track: @track })
+          render turbo_stream: [
+             turbo_stream.remove("no_recent_discoveries"),
+             turbo_stream.prepend("recent_discoveries_list", partial: "history_item", locals: { track: @track })
+          ]
         end
       end
     else

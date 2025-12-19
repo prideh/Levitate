@@ -2,6 +2,6 @@
   <% if @history_tracks.present? %>
     <%= render partial: "history_item", collection: @history_tracks, as: :track %>
   <% else %>
-    <li class="text-sm text-gray-600 italic px-2">No recent discoveries.</li>
+    <li id="no_recent_discoveries" class="text-sm text-gray-600 italic px-2">No recent discoveries.</li>
   <% end %>
 </ul>

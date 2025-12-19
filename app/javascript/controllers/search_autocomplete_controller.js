@@ -37,17 +37,30 @@ export default class extends Controller {
   }
 
   renderResults(matches) {
-    this.resultsTarget.innerHTML = matches.map(term => `
+    this.resultsTarget.innerHTML = matches.map(term => {
+      const safeTerm = this.escapeHTML(term)
+      return `
       <li data-search-autocomplete-target="item"
           data-action="click->search-autocomplete#select"
           class="px-5 py-3 hover:bg-white/10 cursor-pointer text-gray-300 hover:text-white transition-colors border-b border-white/5 last:border-0"
-          data-value="${term}">
+          data-value="${safeTerm}">
         <div class="flex items-center gap-3">
            <svg class="w-4 h-4 text-purple-500 opacity-70" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-           <span class="font-medium">${term}</span>
+           <span class="font-medium">${safeTerm}</span>
         </div>
       </li>
-    `).join("")
+    `}).join("")
+  }
+
+  escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+      tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag]));
   }
 
   select(event) {

@@ -21,7 +21,7 @@ module Gemini
     PROMPT
 
     def initialize(user_text)
-      @user_text = user_text.strip
+      @user_text = user_text.to_s.strip.slice(0, 500)
     end
 
     def call
@@ -58,7 +58,8 @@ module Gemini
       return nil unless raw_text
 
       cleaned_text = raw_text.gsub(/```json|```/, '').strip
-      JSON.parse(cleaned_text)
+      data = JSON.parse(cleaned_text)
+      sanitize_response(data)
     rescue JSON::ParserError => e
       Rails.logger.error("Gemini JSON Parse Error: #{e.message} | Response: #{raw_text}")
       nil
@@ -68,6 +69,24 @@ module Gemini
     rescue => e
       Rails.logger.error("Gemini API Error: #{e.message}")
       nil
+    end
+
+    def sanitize_response(data)
+      return nil unless data.is_a?(Hash)
+
+      # Sanitize search_terms
+      if data['search_terms']
+        data['search_terms'] = data['search_terms'].to_s.slice(0, 100)
+      end
+
+      # Sanitize genres
+      if data['genres'].is_a?(Array)
+        data['genres'] = data['genres'].map { |g| g.to_s.slice(0, 50) }.take(5)
+      else
+        data['genres'] = []
+      end
+
+      data
     end
   end
 end
