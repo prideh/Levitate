@@ -12,7 +12,7 @@
 Levitate – AI-Powered Music Discovery
 
 Levitate ist ein Ruby on Rails 8 MVP, das generative KI nutzt, um abstrakte Prompts in präzise Spotify-Audioattribute zu übersetzen. Die App wandelt unstrukturierte Eingaben (z. B. "ein regnerischer Spaziergang") via Natural Language Understanding (NLU) in Musikempfehlungen um.
-+3
+
 
 🚀 Features
 
